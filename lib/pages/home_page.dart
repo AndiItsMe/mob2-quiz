@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
+import 'package:quiz/managers/question_manager.dart';
+import 'package:quiz/models/question.dart';
+import 'package:quiz/widgets/question_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,24 +14,24 @@ class HomePage extends StatelessWidget {
         title: const Text("Quiz"),
         actions: [
           IconButton(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.restart_alt),
             onPressed: () => {},
           ),
         ],
       ),
-      body: _ScrollableQuoteView(),
+      body: _ScrollableQuestionView(),
     );
   }
 }
 
-class _ScrollableQuoteView extends StatelessWidget with GetItMixin {
-  _ScrollableQuoteView({Key? key}) : super(key: key);
+class _ScrollableQuestionView extends StatelessWidget with GetItMixin {
+  _ScrollableQuestionView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Connects the the QuoteManager event stream
-    // AsyncSnapshot<Quote> snapshot =
-    //     watchStream((QuoteManager m) => m.stream, Quote.none());
+    AsyncSnapshot<Question> snapshot =
+        watchStream((QuestionManager m) => m.stream, Question.none());
 
     return SingleChildScrollView(
       child: ConstrainedBox(
@@ -36,26 +39,29 @@ class _ScrollableQuoteView extends StatelessWidget with GetItMixin {
           minHeight: MediaQuery.of(context).size.height - 100,
         ),
         child: Center(
-          child: _buildSnapshot(context),
+          child: _buildSnapshot(context, snapshot),
         ),
       ),
     );
   }
 
-  // Widget _buildSnapshot(BuildContext context, AsyncSnapshot<Quote> snapshot) {
-  Widget _buildSnapshot(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        // QuoteView(quote),
-        Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: IconButton(
-              icon: Icon(Icons.favorite),
-              color: Colors.pink,
-              onPressed: () => {},
-            )),
-      ],
-    );
+  Widget _buildSnapshot(
+      BuildContext context, AsyncSnapshot<Question> snapshot) {
+    if (snapshot.hasData) {
+      final Question question = snapshot.data!;
+
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          QuestionView(question),
+        ],
+      );
+    } else if (snapshot.hasError) {
+      return Text('${snapshot.error}',
+          style: TextStyle(
+              color: Theme.of(context).errorColor,
+              fontSize: Theme.of(context).textTheme.headline3?.fontSize));
+    }
+    return const CircularProgressIndicator();
   }
 }

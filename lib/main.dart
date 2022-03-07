@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/managers/question_manager.dart';
 import 'package:quiz/pages/home_page.dart';
 
 void main() {
+  QuestionManager.register();
   runApp(const QuizApp());
 }
 
