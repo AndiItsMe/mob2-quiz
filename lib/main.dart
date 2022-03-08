@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/managers/game_manager.dart';
 import 'package:quiz/managers/question_manager.dart';
+import 'package:quiz/managers/score_manager.dart';
 import 'package:quiz/pages/home_page.dart';
 
 void main() {
+  GameManager.register();
   QuestionManager.register();
+  ScoreManager.register();
+
   runApp(const QuizApp());
 }
 
