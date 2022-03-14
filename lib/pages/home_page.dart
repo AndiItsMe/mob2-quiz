@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 import 'package:quiz/managers/game_manager.dart';
+import 'package:quiz/managers/question_manager.dart';
+import 'package:quiz/managers/score_manager.dart';
 
 import 'game_page.dart';
 
@@ -29,6 +31,9 @@ class _ScrollableGameModeView extends StatelessWidget with GetItMixin {
         child: Center(
             child: OutlinedButton(
           onPressed: () {
+            GameManager.register();
+            QuestionManager.register();
+            ScoreManager.register();
             GameManager.instance.start(3);
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const GamePage()));

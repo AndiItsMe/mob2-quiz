@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/managers/game_manager.dart';
-import 'package:quiz/managers/question_manager.dart';
-import 'package:quiz/managers/score_manager.dart';
+import 'package:get_it/get_it.dart';
 import 'package:quiz/pages/home_page.dart';
 
 void main() {
-  GameManager.register();
-  QuestionManager.register();
-  ScoreManager.register();
-
+  GetIt.I.allowReassignment = true;
   runApp(const QuizApp());
 }
 
