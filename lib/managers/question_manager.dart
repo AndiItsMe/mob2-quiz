@@ -13,11 +13,11 @@ class QuestionManager {
     next();
   }
 
-  Stream<Question> get stream => _streamController.stream;
-
   void next() async {
     _streamController.add(await _provider.fetch());
   }
+
+  Stream<Question> get stream => _streamController.stream;
 
   static void register() {
     GetIt.I
