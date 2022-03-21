@@ -33,7 +33,7 @@ class QuestionView extends StatelessWidget {
           children: answers
               .map((answer) => OutlinedButton(
                     onPressed: () {
-                      GameManager.instance.hasAnswer(context, question, answer);
+                      GameManager.instance.play(context, question, answer);
                     },
                     child: Text(answer,
                         style:

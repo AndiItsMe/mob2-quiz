@@ -31,8 +31,7 @@ class _ScrollableGameModeView extends StatelessWidget with GetItMixin {
         child: Column(children: [
           OutlinedButton(
             onPressed: () {
-              RookieGameManager.register();
-              QuestionManager.register();
+              RookieGameManager.start();
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const GamePage()));
             },
@@ -46,8 +45,7 @@ class _ScrollableGameModeView extends StatelessWidget with GetItMixin {
           ),
           OutlinedButton(
             onPressed: () {
-              JourneymanGameManager.register();
-              QuestionManager.register();
+              JourneymanGameManager.start();
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const GamePage()));
             },

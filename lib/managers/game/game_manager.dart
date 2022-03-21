@@ -24,7 +24,7 @@ class GameManager {
   get isHintShown => $isHintShown;
   get score => $score;
 
-  void hasAnswer(BuildContext context, Question question, String answer) {
+  void play(BuildContext context, Question question, String answer) {
     if (question.isCorrectAnswer(answer)) {
       $score++;
     }
@@ -42,6 +42,10 @@ class GameManager {
 
   void toggleHint() {
     $isHintShown.value = !$isHintShown.value;
+  }
+
+  static void start() {
+    QuestionManager.register();
   }
 
   static get instance => GetIt.I.get<GameManager>();

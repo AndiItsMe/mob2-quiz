@@ -9,7 +9,7 @@ class JourneymanGameManager extends GameManager {
   JourneymanGameManager() : super(10);
 
   @override
-  void hasAnswer(BuildContext context, Question question, String answer) {
+  void play(BuildContext context, Question question, String answer) {
     if (question.isCorrectAnswer(answer)) {
       $score++;
 
@@ -27,7 +27,8 @@ class JourneymanGameManager extends GameManager {
     }
   }
 
-  static void register() {
+  static void start() {
+    GameManager.start();
     GetIt.I.registerLazySingleton<GameManager>(() => JourneymanGameManager());
   }
 }
