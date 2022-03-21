@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
-import 'package:quiz/managers/game_manager.dart';
+import 'package:quiz/managers/game/game_manager.dart';
 import 'package:quiz/managers/question_manager.dart';
 import 'package:quiz/models/question.dart';
 import 'package:quiz/widgets/question_view.dart';
@@ -29,7 +29,7 @@ class _ScrollableQuestionView extends StatelessWidget with GetItMixin {
   @override
   Widget build(BuildContext context) {
     // Connects the the QuoteManager event stream
-    AsyncSnapshot<Question> snapshot =
+    AsyncSnapshot<Question> questionSnapshot =
         watchStream((QuestionManager m) => m.stream, Question.none());
 
     return SingleChildScrollView(
@@ -38,16 +38,16 @@ class _ScrollableQuestionView extends StatelessWidget with GetItMixin {
           minHeight: MediaQuery.of(context).size.height - 100,
         ),
         child: Center(
-          child: _buildSnapshot(context, snapshot),
+          child: _buildSnapshot(context, questionSnapshot),
         ),
       ),
     );
   }
 
   Widget _buildSnapshot(
-      BuildContext context, AsyncSnapshot<Question> snapshot) {
-    if (snapshot.hasData) {
-      final Question question = snapshot.data!;
+      BuildContext context, AsyncSnapshot<Question> questionSnapshot) {
+    if (questionSnapshot.hasData) {
+      final Question question = questionSnapshot.data!;
       bool isHintShown = watchX((GameManager m) => m.isHintShown);
 
       return Column(
@@ -63,8 +63,8 @@ class _ScrollableQuestionView extends StatelessWidget with GetItMixin {
               : const Text("")
         ],
       );
-    } else if (snapshot.hasError) {
-      return Text('${snapshot.error}',
+    } else if (questionSnapshot.hasError) {
+      return Text('${questionSnapshot.error}',
           style: TextStyle(
               color: Theme.of(context).errorColor,
               fontSize: Theme.of(context).textTheme.headline3?.fontSize));

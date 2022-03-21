@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/managers/game_manager.dart';
-import 'package:quiz/managers/score_manager.dart';
+import 'package:quiz/managers/game/game_manager.dart';
 import 'package:quiz/pages/home_page.dart';
 
 class ScorePage extends StatelessWidget {
@@ -19,8 +18,8 @@ class ScorePage extends StatelessWidget {
                     child: Column(children: <Widget>[
                   Text(
                       "You made " +
-                          ScoreManager.instance.score.toString() +
-                          " correct answers",
+                          GameManager.instance.score.toString() +
+                          " points",
                       style: const TextStyle(color: Colors.pink, fontSize: 28)),
                   Text(
                       "out of " +

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/managers/game_manager.dart';
-import 'package:quiz/managers/question_manager.dart';
+import 'package:quiz/managers/game/game_manager.dart';
 import 'package:quiz/models/question.dart';
 
 class QuestionView extends StatelessWidget {
